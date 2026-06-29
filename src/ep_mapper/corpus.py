@@ -55,6 +55,10 @@ def load_schedule1(xml_path: Path) -> dict[str, EpClause]:
             if sub_num_el is None:
                 continue
             sub_num = (sub_num_el.text or "").strip()
+            # Qualify bare numbers (e.g. "1" inside EP 15) as "15.1" to avoid
+            # overwriting top-level EP keys in the result dict.
+            if "." not in sub_num:
+                sub_num = f"{ep_num}.{sub_num}"
             sub_eid = sub.get("eId", "")
             sub_text = _collect_text(sub)
             result[sub_num] = EpClause(
