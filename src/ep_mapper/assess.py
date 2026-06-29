@@ -6,7 +6,7 @@ import anthropic
 
 from ep_mapper.schema import DeviceMetadata, EpClause, EpRow
 
-_ALWAYS_REVIEW_EPS = {"7", "12.8", "14"}
+_ALWAYS_REVIEW_EPS = {"7", "12", "14"}
 
 _SYSTEM_PROMPT = (
     "You are a regulatory affairs assistant analysing medical device documentation against "
@@ -102,6 +102,30 @@ def _default_model() -> str:
     return os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
 
 
+def _error_row(
+    clause: EpClause,
+    applicability: str,
+    applicability_basis: str | None,
+    compliance_deadline: str | None,
+    reason: str,
+) -> EpRow:
+    return EpRow(
+        ep_number=clause.ep_number,
+        ep_title=clause.ep_title,
+        citation=clause.citation,
+        citation_uri=clause.citation_uri,
+        applicability=applicability,
+        applicability_basis=applicability_basis,
+        coverage_rating="gap",
+        evidence_refs=[],
+        gap_notes=f"Assessment failed: {reason}",
+        confidence="low",
+        requires_professional_review=True,
+        structured_extraction=None,
+        compliance_deadline=compliance_deadline,
+    )
+
+
 def assess_ep(
     clause: EpClause,
     device_meta: DeviceMetadata,
@@ -115,18 +139,24 @@ def assess_ep(
     """Run LLM coverage assessment for one EP/sub-clause and return an EpRow."""
     prompt = build_assessment_prompt(clause, device_meta, document_text, sub_requirements)
 
-    response = client.messages.create(
-        model=_default_model(),
-        max_tokens=2048,
-        temperature=0,
-        system=_SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    try:
+        response = client.messages.create(
+            model=_default_model(),
+            max_tokens=2048,
+            temperature=0,
+            system=_SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": prompt}],
+        )
+    except anthropic.APIError as e:
+        return _error_row(clause, applicability, applicability_basis, compliance_deadline, str(e))
 
     raw = response.content[0].text.strip()
     raw = re.sub(r"^```json\n?", "", raw)
     raw = re.sub(r"\n?```$", "", raw).strip()
-    data = json.loads(raw)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return _error_row(clause, applicability, applicability_basis, compliance_deadline, f"JSON decode error: {e}")
 
     evidence_refs: list[str] = data.get("evidence_refs", [])
     grounded_refs = verify_passages(evidence_refs, document_text)

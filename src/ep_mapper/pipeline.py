@@ -1,5 +1,4 @@
 from __future__ import annotations
-import os
 from pathlib import Path
 
 import anthropic
@@ -30,17 +29,6 @@ _UDI_DEADLINES: dict[str, str] = {
 _STRUCTURED_EPS = {"7", "12", "14"}
 
 
-def _load_env() -> None:
-    env_file = Path(".env")
-    if not env_file.exists():
-        return
-    for line in env_file.read_text().splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
-
-
 def run_analysis(
     pdf_path: Path,
     meta: DeviceMetadata,
@@ -48,7 +36,6 @@ def run_analysis(
     disclaimer_timestamp: str,
 ) -> tuple[list[EpRow], list[str], int]:
     """Run full EP gap analysis. Returns (rows, pages, page_count)."""
-    _load_env()
     client = anthropic.Anthropic()
 
     ep_clauses = load_schedule1(lex_au_xml_path)

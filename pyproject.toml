@@ -5,13 +5,22 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ep-mapper"
 version = "0.1.0"
+description = "TGA Essential Principles gap analysis tool for Australian medical device submissions"
+authors = [{ name = "Ching Chew", email = "ching.chew@gmail.com" }]
+license = { text = "MIT" }
 requires-python = ">=3.12"
+keywords = ["tga", "medical-device", "regulatory", "essential-principles", "australia"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Healthcare Industry",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+]
 dependencies = [
   "anthropic>=0.40.0",
-  "pydantic>=2.0",
   "pdfplumber>=0.11",
   "lxml>=5.3",
-  "click>=8.1",
 ]
 
 [project.optional-dependencies]
@@ -19,6 +28,13 @@ dev = [
   "pytest>=8.0",
   "reportlab>=4.0",
 ]
+
+[project.scripts]
+ep-mapper = "ep_mapper.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/cchew/ep-mapper"
+Repository = "https://github.com/cchew/ep-mapper"
 
 [tool.setuptools.packages.find]
 where = ["src"]
