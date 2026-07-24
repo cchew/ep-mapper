@@ -10,7 +10,7 @@ Given a PDF of technical documentation and device metadata, EP Mapper:
 - Verifies quoted passages exist verbatim in the source PDF
 - Outputs a structured gap matrix to the terminal
 
-**Regulation pin:** Schedule 1, TG(MD)R 2002, C70 (F2026C00240, 21 Mar 2026)
+**Regulation pin:** Schedule 1, TG(MD)R 2002, C71 (F2026C00610, 1 Jul 2026)
 
 > **Disclaimer:** This tool produces a documentation gap analysis only. It does not assess evidence adequacy, constitute a regulatory determination, or replace professional review before TGA submission.
 

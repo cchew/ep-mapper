@@ -66,9 +66,9 @@ TIMESTAMP = "2026-06-29T14:30:00"
 
 def test_output_contains_regulation_header():
     out = format_gap_matrix(ROWS, META, Path("evidence.pdf"), 5, TIMESTAMP)
-    assert "F2026C00240" in out
-    assert "C70" in out
-    assert "21 Mar 2026" in out
+    assert "F2026C00610" in out
+    assert "C71" in out
+    assert "1 Jul 2026" in out
 
 
 def test_output_contains_device_info():

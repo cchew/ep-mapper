@@ -14,7 +14,9 @@ from ep_mapper.schema import DeviceMetadata
 def _find_lex_au_xml() -> Path | None:
     import glob
     corpus_dir = Path(os.environ.get("LEX_AU_CORPUS_DIR", "../../lex-au/repo/corpus"))
-    matches = list(glob.glob(str(corpus_dir / "xml" / "*therapeutic*")))
+    matches = list(glob.glob(str(corpus_dir / "xml" / "*therapeutic*medical*devices*")))
+    if not matches:
+        matches = list(glob.glob(str(corpus_dir / "xml" / "*therapeutic*")))
     return Path(sorted(matches)[0]) if matches else None
 
 
@@ -111,7 +113,7 @@ def test_scenario3_class_iib_ep14_requires_review(lex_au_xml, fixtures_dir):
 
 
 def test_full_output_contains_regulation_version(lex_au_xml, fixtures_dir):
-    """Output header must contain C70 (F2026C00240) in every run."""
+    """Output header must contain C71 (F2026C00610) in every run."""
     from ep_mapper.pipeline import run_analysis
     from ep_mapper.output import format_gap_matrix
 
@@ -125,6 +127,6 @@ def test_full_output_contains_regulation_version(lex_au_xml, fixtures_dir):
         rows, pages, page_count = run_analysis(pdf_path, meta, lex_au_xml, "2026-06-29T12:00:00")
 
     output = format_gap_matrix(rows, meta, pdf_path, page_count, "2026-06-29T12:00:00")
-    assert "F2026C00240" in output
-    assert "C70" in output
-    assert "21 Mar 2026" in output
+    assert "F2026C00610" in output
+    assert "C71" in output
+    assert "1 Jul 2026" in output

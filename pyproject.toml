@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ep-mapper"
-version = "0.1.0"
+version = "0.1.1"
 description = "TGA Essential Principles gap analysis tool for Australian medical device submissions"
 authors = [{ name = "Ching Chew", email = "ching.chew@gmail.com" }]
 license = { text = "MIT" }

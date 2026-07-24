@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 from ep_mapper.schema import DeviceMetadata, EpRow
 
-_REGULATION_VERSION = "C70 (F2026C00240, 21 Mar 2026)"
+_REGULATION_VERSION = "C71 (F2026C00610, 1 Jul 2026)"
 _REGULATION_NAME = "Sch 1, TG(MD)R 2002"
 
 _DISCLAIMER = (
