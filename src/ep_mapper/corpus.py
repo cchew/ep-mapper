@@ -8,6 +8,10 @@ AKN_NS = "http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
 AKN = f"{{{AKN_NS}}}"
 _REGULATION_CITATION = "Therapeutic Goods (Medical Devices) Regulations 2002"
 
+# Disable entity resolution and network access — the corpus path can be pointed
+# at an arbitrary file via LEX_AU_CORPUS_DIR, so treat the XML as untrusted.
+_XML_PARSER = etree.XMLParser(resolve_entities=False, no_network=True)
+
 
 def _collect_text(el: etree._Element) -> str:
     return " ".join(t.strip() for t in el.itertext() if t.strip())
@@ -22,7 +26,7 @@ def load_schedule1(xml_path: Path) -> dict[str, EpClause]:
 
     Returns dict keyed by EP number string: "1", "7.3", "13A", etc.
     """
-    tree = etree.parse(str(xml_path))
+    tree = etree.parse(str(xml_path), parser=_XML_PARSER)
     root = tree.getroot()
 
     schedules = root.findall(f".//{AKN}hcontainer[@name='schedule']")
