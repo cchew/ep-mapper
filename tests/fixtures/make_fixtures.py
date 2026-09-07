@@ -95,11 +95,11 @@ NOTE: No UDI documentation has been prepared. UDI compliance plan is pending.
 
 SCENARIO3_PAGES = [
     """\
-TECHNICAL DOCUMENTATION — NeuroPace X1
-Device: NeuroPace X1 | Class IIb active implantable neural stimulator | Non-IVD | Active | Software present
+TECHNICAL DOCUMENTATION — CerebroStim X1
+Device: CerebroStim X1 | Class IIb active implantable neural stimulator | Non-IVD | Active | Software present
 
 SECTION 1 — SAFETY AND GENERAL PRINCIPLES
-The NeuroPace X1 is an implantable neurostimulator for management of treatment-resistant
+The CerebroStim X1 is an implantable neurostimulator for management of treatment-resistant
 epilepsy. Risk management per ISO 14971:2019 covers all phases of device lifecycle.
 Benefit-risk conclusion: clinical benefits of seizure reduction outweigh risks of
 surgical implantation and device malfunction for eligible patients.
@@ -140,14 +140,14 @@ manufacturer details, sterilisation indicator, single-use designation, and instr
 SECTION 6 — CLINICAL EVIDENCE (EP 14)
 Clinical evidence strategy: direct clinical data from investigational device study.
 Literature review (MEDLINE, EMBASE, Cochrane, 2000-2025): 24 relevant studies identified.
-Clinical investigation: NEUROPACE-AU-001 study (n=45, 12-month follow-up) demonstrates
+Clinical investigation: CEREBROSTIM-AU-001 study (n=45, 12-month follow-up) demonstrates
 mean seizure reduction of 58% vs baseline (p<0.001). No serious device-related
 adverse events in the study cohort.
 Post-market clinical follow-up plan: Annual registry data collection from implanting
 centres. PMCF protocol approved by ethics committee.
 
 SECTION 7 — UDI AND TRACEABILITY
-UDI assignment: in progress. NeuroPace X1 is a Class IIb device; UDI compliance
+UDI assignment: in progress. CerebroStim X1 is a Class IIb device; UDI compliance
 required by 1 July 2027. UDI system selection completed (GS1 GTIN). Submission
 to GUDID pending. Current documentation does not yet include UDI-DI or UDI-PI.
 """,

@@ -94,7 +94,7 @@ def test_scenario3_class_iib_ep14_requires_review(lex_au_xml, fixtures_dir):
     """Scenario 3: EP 14 always requires professional review."""
     from ep_mapper.pipeline import run_analysis
 
-    meta = DeviceMetadata("NeuroPace X1", "Neural stimulation for epilepsy", "IIb", False, True, True, False, True)
+    meta = DeviceMetadata("CerebroStim X1", "Neural stimulation for epilepsy", "IIb", False, True, True, False, True)
     pdf_path = fixtures_dir / "scenario3_class_iib.pdf"
 
     mock_client = MagicMock()

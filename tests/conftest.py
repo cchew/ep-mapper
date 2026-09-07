@@ -51,7 +51,7 @@ def meta_scenario2() -> DeviceMetadata:
 @pytest.fixture
 def meta_scenario3() -> DeviceMetadata:
     return DeviceMetadata(
-        device_name="NeuroPace X1",
+        device_name="CerebroStim X1",
         intended_purpose="Management of treatment-resistant epilepsy via neural stimulation",
         device_class="IIb",
         ivd=False,
